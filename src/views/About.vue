@@ -15,11 +15,15 @@
 	</div>
 	<div>
 		<br>
-		<h1>使用方法：<span>{{normal()}}</span></h1>
+		<h2>使用方法：<span>{{normal()}}</span></h2>
 	</div>
 	<div>
 		<br>
-		<h1>使用方法：<span>{{comput1}}</span></h1>
+		<h2>使用方法：<span>{{comput1}}</span></h2>
+	</div>
+	<div>
+		<h1>使用全局组件</h1>
+		<HiWorld msg="20210126" :num=20 @toparent="method1"></HiWorld>
 	</div>
 	
   </div>
@@ -35,6 +39,9 @@
 			}
 		},
 		methods:{
+			method1(e){
+				console.log("About页面收到数据",e)
+			},
 			normal(){
 				console.log("普通方法执行了");
 				return"普通方法"

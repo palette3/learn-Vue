@@ -1,10 +1,13 @@
 <template>
-	<div class="home">
+<div class="home">
 	<img alt="Vue logo" src="../assets/logo.png">
 	<HelloWorld msg="Welcome to Your Vue.js App"/>
 	<HeiWorld></HeiWorld>
-	<HiWorld></HiWorld>
+	<div>
+		<h1>使用全局组件</h1>
+		<HiWorld msg="19:21:00" :num=10 @toparent="method1"></HiWorld>
 	</div>
+</div>
 
 </template>
 
@@ -18,6 +21,11 @@ export default {
 	components: {
 	HelloWorld,
 	HeiWorld,
-	}
+	},
+	methods:{
+		method1(e){
+			console.log("Home页面收到数据",e)
+		}
+	},
 }
 </script>
