@@ -4,8 +4,9 @@
 	<HelloWorld msg="Welcome to Your Vue.js App"/>
 	<HeiWorld></HeiWorld>
 	<div>
-		<h1>使用全局组件</h1>
 		<HiWorld msg="19:21:00" :num=10 @toparent="method1"></HiWorld>
+		<h1 slot="inner">在Home页面使用全局组件</h1>
+		<h2 slot="top">在Home页面向父组件传参</h2>
 	</div>
 </div>
 
