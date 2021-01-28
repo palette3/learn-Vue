@@ -1,32 +1,74 @@
 <template>
-<div class="home">
-	<img alt="Vue logo" src="../assets/logo.png">
-	<HelloWorld msg="Welcome to Your Vue.js App"/>
-	<HeiWorld></HeiWorld>
-	<div>
-		<HiWorld msg="19:21:00" :num=10 @toparent="method1"></HiWorld>
-		<h1 slot="inner">在Home页面使用全局组件</h1>
-		<h2 slot="top">在Home页面向父组件传参</h2>
+	<div class="home">
+		<el-row>
+			<el-col :span="4" v-for="(o, index) in 4" :key="o" :offset="index > 0 ? 2 : 0">
+				<el-card :body-style="{ padding: '0px' }">
+					<img src="../assets/bookimgs/1.jpeg" class="image">
+					<div style="padding: 14px;">
+						<span>谜案侦探2</span>
+						<div class="bottom clearfix">
+							<time class="time">{{ currentDate }}</time>
+							<el-button type="text" class="button">操作按钮</el-button>
+						</div>
+					</div>
+				</el-card>
+			</el-col>
+		</el-row>
 	</div>
-</div>
-
 </template>
 
-<script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
-import HeiWorld from '@/components/HeiWorld.vue'
 
-export default {
-	name: 'Home',
-	components: {
-	HelloWorld,
-	HeiWorld,
-	},
-	methods:{
-		method1(e){
-			console.log("Home页面收到数据",e)
+
+
+
+<script>
+	import {
+		books
+	} from '../data/bookdata.js'
+	console.log("book", books)
+	export default {
+		name: 'Home',
+		data() {
+			return {
+				books: books,
+				currentDate: new Date()
+			}
 		}
-	},
-}
+	}
 </script>
+
+
+
+
+
+<style>
+	.time {
+		font-size: 13px;
+		color: #999;
+	}
+
+	.bottom {
+		margin-top: 13px;
+		line-height: 12px;
+	}
+
+	.button {
+		padding: 0;
+		float: right;
+	}
+
+	.image {
+		width: 100%;
+		display: block;
+	}
+
+	.clearfix:before,
+	.clearfix:after {
+		display: table;
+		content: "";
+	}
+
+	.clearfix:after {
+		clear: both
+	}
+</style>
