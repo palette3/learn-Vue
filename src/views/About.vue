@@ -1,137 +1,88 @@
 <template>
-	<div class="about">
-		<el-container>
-			<el-header>
-				<i class="el-icon-video-pause"></i>
-				<i class="el-icon-video-play"></i>
-				<i class="el-icon-switch-button"></i>
-				<el-button type="success" icon="el-icon-search">搜索</el-button>
-			</el-header>
-			<el-container>
-				<el-aside width="200px">
-					<el-slider v-model="value2" vertical height="200px"></el-slider>
-				</el-aside>
-				<el-main>
-					<el-row>
-						<el-button plain>朴素按钮</el-button>
-						<el-button type="primary" plain>主要按钮</el-button>
-						<el-button type="success" plain>成功按钮</el-button>
-						<el-button type="info" plain>信息按钮</el-button>
-						<el-button type="warning" plain>警告按钮</el-button>
-						<el-button type="danger" plain>危险按钮</el-button>
-						<br>
-						<el-button type="primary" icon="el-icon-edit" circle></el-button>
-						<el-button type="success" icon="el-icon-check" circle></el-button>
-						<el-button type="info" icon="el-icon-message" circle></el-button>
-						<el-button type="warning" icon="el-icon-star-off" circle></el-button>
-						<el-button type="danger" icon="el-icon-delete" circle></el-button>
-					</el-row>
-					<el-switch v-model="value1" active-text="按月付费" inactive-text="按年付费"></el-switch>
-				</el-main>
-			</el-container>
-			<el-footer>
-				<div>
-					<el-link href="https://element.eleme.io" target="_blank">默认链接</el-link>
-					<el-link type="primary">主要链接</el-link>
-					<el-link type="success">成功链接</el-link>
-					<el-link type="warning">警告链接</el-link>
-					<el-link type="danger">危险链接</el-link>
-					<el-link type="info">信息链接</el-link>
-				</div>
-			</el-footer>
-		</el-container>
-	</div>
+  <div class="about">
+	<Heart :stateprop="heartState" @tellparent="statechange"> <span slot="to">给商品点赞：</span> </Heart>
+	
+	<br>
+	<Heart :stateprop="state2" @tellparent="state2change"> <span slot="to">给快递点赞：</span> </Heart>
+	
+	<br>
+	<Heart :stateprop="state3" @tellparent="state3change"> <span slot="to">给客服点赞：</span> </Heart>
+ 
+	<br>
+	<Star :starnumprop="star1" @tellparent="starchange1"><span slot="to" >给客服评星:</span></Star>
+	
+	<br>
+	<Star :starnumprop="star2" @tellparent="starchange2"><span slot="to" >给快递评星:</span></Star>
+	
+	<br>
+	<Star :starnumprop="star3" @tellparent="starchange3"><span slot="to" >给商品评星:</span></Star>
+  
+	<br>
+	<br>
+	<br>
+	<span  v-if="show"><Step></Step></span>   <button @click="show=!show">切换</button>
+  </div>
 </template>
 
 
 <script>
-	export default {
-		data() {
-			return {
-				radio: '1',
-				input: '',
-				num: 1,
-				options: [],
-				value1: true,
-				value2: 0,
-			}
+import Heart from '@/components/heart/Heart.vue'
+import Star from '@/components/star/Star.vue'
+import Step from '@/components/Step.vue'
+
+
+export default {
+	components:{
+		Heart,
+		Star,
+		Step
+	},
+	created() {
+
+	},
+	methods:{
+		// 请求API接口 获取点赞状态
+		
+		
+		statechange(e){
+			console.log("通知服务器将商品点赞状态设置为", e.state);
+		},
+		state2change(e){
+			console.log("通知服务器将快递点赞状态设置为", e.state);
+		},
+		state3change(e){
+			console.log("通知服务器将客服点赞状态设置为", e.state);
+		},
+		
+		starchange1(e){
+			console.log("通知服务器将客服评星设置为", e.starnum);
+		},
+		starchange2(e){
+			
+			console.log("通知服务器将快递评星设置为", e.starnum);
+		},
+		starchange3(e){
+			console.log("通知服务器将商品评星设置为", e.starnum);
+		}
+	},
+	data(){
+		return {
+			show:true,
+			// 从服务器获取商品点赞状态
+			heartState:true,
+			// 从服务器获取快递点赞状态
+			state2:false,
+			// 从服务器获取快递点赞状态
+			state3:false,
+			
+			// 从服务器获取快递评星
+			star1:1,
+			// 从服务器获取客服评星
+			star2:2,
+			// 从服务器获取商品评星
+			star3:3
 		}
 	}
+}
+
 </script>
-
-
-
-
-<style>
-	.el-row {
-		margin-bottom: 20px;
-
-		&:last-child {
-			margin-bottom: 0;
-		}
-	}
-
-	.el-col {
-		border-radius: 4px;
-	}
-
-	.bg-purple-dark {
-		background: #99a9bf;
-	}
-
-	.bg-purple {
-		background: #d3dce6;
-	}
-
-	.bg-purple-light {
-		background: #e5e9f2;
-	}
-
-	.grid-content {
-		border-radius: 4px;
-		min-height: 36px;
-	}
-
-	.row-bg {
-		padding: 10px 0;
-		background-color: #f9fafc;
-	}
-
-	.el-header,
-	.el-footer {
-		background-color: #F56C6C;
-		color: #333;
-		text-align: center;
-		line-height: 60px;
-		border-radius: 4px;
-	}
-
-	.el-aside {
-		background-color: #67C23A;
-		color: #333;
-		text-align: center;
-		line-height: 200px;
-		border-radius: 4px;
-	}
-
-	.el-main {
-		background-color: #E6A23C;
-		color: #333;
-		text-align: center;
-		line-height: 160px;
-		border-radius: 4px;
-	}
-
-	body>.el-container {
-		margin-bottom: 40px;
-	}
-
-	.el-container:nth-child(5) .el-aside,
-	.el-container:nth-child(6) .el-aside {
-		line-height: 260px;
-	}
-
-	.el-container:nth-child(7) .el-aside {
-		line-height: 320px;
-	}
-</style>

@@ -1,74 +1,55 @@
 <template>
 	<div class="home">
-		<el-row>
-			<el-col :span="4" v-for="(o, index) in 4" :key="o" :offset="index > 0 ? 2 : 0">
-				<el-card :body-style="{ padding: '0px' }">
-					<img src="../assets/bookimgs/1.jpeg" class="image">
-					<div style="padding: 14px;">
-						<span>谜案侦探2</span>
-						<div class="bottom clearfix">
-							<time class="time">{{ currentDate }}</time>
-							<el-button type="text" class="button">操作按钮</el-button>
-						</div>
-					</div>
-				</el-card>
-			</el-col>
-		</el-row>
+		<div class="books">
+			<el-row :gutter="20">
+				<el-col :span="6" v-for="b in books" :key="b.id">
+					<!-- <router-link :to="'/book/'+b.id"> -->
+					<router-link :to="{name:'Book',params:{pk:b.id}}">
+						<el-card :body-style="{ padding: '0px' }" shadow="hover" class="book">
+							<img :src="b.mainimg" class="image">
+							<div style="padding: 14px;">
+								<h3>{{b.title}}</h3>
+							</div>
+						</el-card>
+					</router-link>
+				</el-col>
+			</el-row>
+		</div>
+		
+		
 	</div>
 </template>
 
-
-
-
-
 <script>
-	import {
-		books
-	} from '../data/bookdata.js'
-	console.log("book", books)
+	import {books} from '../data/bookdata.js'
+	console.log("books", books)
 	export default {
-		name: 'Home',
-		data() {
+		name:'Home',
+		data(){
 			return {
-				books: books,
-				currentDate: new Date()
+				books:books
 			}
 		}
 	}
 </script>
 
-
-
-
-
-<style>
-	.time {
-		font-size: 13px;
-		color: #999;
+<style lang="less">
+.books{
+	width: 80%;
+	margin: 0 auto;
+	a{
+		text-decoration: none;
 	}
-
-	.bottom {
-		margin-top: 13px;
-		line-height: 12px;
+	h3{
+		text-align: center;
 	}
-
-	.button {
-		padding: 0;
-		float: right;
+	.book{
+		img{
+			width: 100%;
+		}
 	}
-
-	.image {
-		width: 100%;
-		display: block;
+	.el-col{
+		margin: 10px 0;
 	}
-
-	.clearfix:before,
-	.clearfix:after {
-		display: table;
-		content: "";
-	}
-
-	.clearfix:after {
-		clear: both
-	}
+}
 </style>
