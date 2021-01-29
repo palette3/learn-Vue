@@ -12,6 +12,11 @@ import HiWorld from '@/components/HiWorld.vue'
 // 2注册组件  注册全局组件
 Vue.component("HiWorld", HiWorld)
 
+import Heart from '@/components/Heart.vue'
+Vue.component("Heart", Heart)
+
+// import Star from '@/components/Star.vue'
+// Vue.component("Star", Star)
 
 // 引入Element-UI框架
 import ElementUI from 'element-ui';
@@ -48,7 +53,7 @@ Vue.prototype.$bus = bus
 
 // 根VUE实例  
 new Vue({
-  router,
-  store,
-  render: h => h(App)
+	router,
+	store,
+	render: h => h(App)
 }).$mount('#app')

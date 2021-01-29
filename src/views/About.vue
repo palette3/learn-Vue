@@ -26,15 +26,13 @@
 
 
 <script>
-import Heart from '@/components/heart/Heart.vue'
-import Star from '@/components/star/Star.vue'
+import Heart from '@/components/Heart.vue'
 import Step from '@/components/Step.vue'
 
 
 export default {
 	components:{
 		Heart,
-		Star,
 		Step
 	},
 	created() {
