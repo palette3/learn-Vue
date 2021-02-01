@@ -1,96 +1,68 @@
 <template>
 	<div class="collect">
-		<el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
-			<el-form-item label="密码" prop="pass">
-				<el-input type="password" v-model="ruleForm.pass" autocomplete="off"></el-input>
-			</el-form-item>
-			<el-form-item label="确认密码" prop="checkPass">
-				<el-input type="password" v-model="ruleForm.checkPass" autocomplete="off"></el-input>
-			</el-form-item>
-			<el-form-item label="年龄" prop="age">
-				<el-input v-model.number="ruleForm.age"></el-input>
-			</el-form-item>
-			<el-form-item>
-				<el-button type="primary" @click="submitForm('ruleForm')">提交</el-button>
-				<el-button @click="resetForm('ruleForm')">重置</el-button>
-			</el-form-item>
-		</el-form>
+		<h1>我的收藏</h1>
+		<br>
+		<br>
+		<br>
+		<el-table
+			:data="tableData"
+			style="width: 100%">
+			<el-table-column
+			type="index"
+			label="编号"
+			width="120">
+			</el-table-column>
+			<el-table-column
+			prop="title"
+			label="书籍名"
+			width="240">
+			</el-table-column>
+			<el-table-column
+			label="操作"
+			width="120">
+				<template slot-scope="scope">
+				<el-button
+					size="mini"
+					@click="handleDelete(scope.$index, scope.row)">
+					删除
+				</el-button>
+
+				</template>
+			</el-table-column>
+		</el-table>
 	</div>
 </template>
 
 <script>
-	export default {
-		data() {
-			var checkAge = (rule, value, callback) => {
-				if (!value) {
-					return callback(new Error('年龄不能为空'));
-				}
-				setTimeout(() => {
-					if (!Number.isInteger(value)) {
-						callback(new Error('请输入数字值'));
-					} else {
-						if (value < 18) {
-							callback(new Error('必须年满18岁'));
-						} else {
-							callback();
-						}
-					}
-				}, 1000);
-			};
-			var validatePass = (rule, value, callback) => {
-				if (value === '') {
-					callback(new Error('请输入密码'));
-				} else {
-					if (this.ruleForm.checkPass !== '') {
-						this.$refs.ruleForm.validateField('checkPass');
-					}
-					callback();
-				}
-			};
-			var validatePass2 = (rule, value, callback) => {
-				if (value === '') {
-					callback(new Error('请再次输入密码'));
-				} else if (value !== this.ruleForm.pass) {
-					callback(new Error('两次输入密码不一致!'));
-				} else {
-					callback();
-				}
-			};
-			return {
-				ruleForm: {
-					pass: '',
-					checkPass: '',
-					age: ''
-				},
-				rules: {
-					pass: [{
-						validator: validatePass,
-						trigger: 'blur'
-					}],
-					checkPass: [{
-						validator: validatePass2,
-						trigger: 'blur'
-					}],
-					age: [{
-						validator: checkAge,
-						trigger: 'blur'
-					}]
-				}
-			};
+	import {books} from '../data/bookdata.js'
+	export default{
+		data(){
+			return{
+				tableData: [
+					
+				]
+			}
 		},
-		methods: {
-			submitForm(formName) {
-				this.$refs[formName].validate((valid) => {
-					if (valid) {
-						alert('submit!');
-					} else {
-						console.log('error submit!!');
-						return false;
-					}
-				});
-			},
-			resetForm(formName) {
-				this.$refs[formName].resetFields();
+		created() {
+			this.$store.getters.getCollectBoos.forEach(id=>{
+				let b = books.filter(b=>{
+					return b.id==id
+				})[0];
+				this.tableData.push(b);
+				
+			})
+		},
+		methods:{
+			handleDelete(index, row) {
+				// console.log(index, row);
+				// this.$store.commit("removeCollect",row.id);
+				this.$store.dispatch("removeCollectAsync",row.id)
+				
+				
+				
+				this.tableData=this.tableData.filter(item=>{
+					return item.id != row.id
+				})
 			}
 		}
 	}

@@ -1,11 +1,13 @@
 <template>
 	<div>
-		<h1>我是HiWorld组件</h1>
+		<!-- <h1>我是HiWorld组件</h1>
 		<p>我接受到msg的值为{{msg}}</p>
-		<p>我接受到num的值为{{num}}</p>
+		<p>我接受到num的值为{{num}}</p> -->
 		
+		<slot name="top"></slot>
 		
-		<button @click="tellparent">点击向外层发送事件</button>
+		<button @click="tellparent"> 按钮: <slot name="inner"></slot> </button>
+
 	</div>
 </template>
 
@@ -16,6 +18,7 @@
 				type:String,
 				default:"20210126"
 			},
+			// num:Number
 			num:{
 				type:Number,
 				required:true
@@ -27,8 +30,9 @@
 			tellparent(){
 				this.$emit("toparent",{"name":"qiku"})
 			}
-		},
+		}
 	}
 </script>
+
 <style>
 </style>

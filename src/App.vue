@@ -19,12 +19,12 @@
 				
 				<template v-if="user">
 					<el-menu-item index="5" class="rt" @click="logout">退出</el-menu-item>
-					<el-menu-item index="4" class="rt">{{user}}</el-menu-item>
+					<el-menu-item index="4" class="rt"><router-link :to="{name:'Center'}">{{user}}</router-link></el-menu-item>
 					
 				</template>
 				
 				<template v-else>
-					<el-menu-item index="4" class="rt">注册</el-menu-item>
+					<el-menu-item index="4" class="rt"><router-link :to="{name:'Regist'}">注册</router-link></el-menu-item>
 					<el-menu-item index="5" class="rt"><router-link :to="{name:'Login'}">登录</router-link></el-menu-item>
 				</template>
 				
@@ -32,6 +32,7 @@
 				</el-menu>
 		</el-header>
 		<el-main>
+			<!--  当输入的地址 和哪一个路由匹配 则显示对应路由对应的组件 -->
 			<router-view/>
 		</el-main>
 		<!-- <el-footer>Footer</el-footer> -->

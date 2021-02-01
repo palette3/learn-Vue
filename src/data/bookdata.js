@@ -13,7 +13,7 @@ let books = [
     },
     {
         "title": "末世基因纪元",
-        "mainimg": require("../assets/bookimgs/3.png"),
+        "mainimg": require("../assets/bookimgs/3.jpeg"),
         "outline": "刚就业就被外星人绑架，就要被当小白鼠做基因实验…\n横竖都是死，吴天大胆向外星人提出了自己的基因理论……\n于是奇点基因就此诞生",
         "id": 103
     },
