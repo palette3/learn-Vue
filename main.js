@@ -14,7 +14,7 @@ Vue.component("HiWorld", HiWorld)
 
 // 注册全局过滤器
 Vue.filter("info",function(value){
-	return value+"  sjy"
+	return value+"  zzy"
 })
 
 
